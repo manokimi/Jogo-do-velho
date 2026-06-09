@@ -5,10 +5,10 @@ Var
    i,j,n,m,x,o: inteiro
    terminou: logico
 
-
 procedimento logicavelha(var l: inteiro; var c: inteiro; var vv: vetor [1..3,1..3] de caractere; var fim:logico)
 Inicio
    para l <- 1 ate 3 faca
+   //Verificar linha
       Se(vv[l,1]= "X") e (vv[l,2]="X") e (vv[l,3]="X") entao
          Escreval("Parabéns [X] campeão")
          fim <- verdadeiro
@@ -17,6 +17,7 @@ Inicio
             Escreval("Parabéns [O] campeão")
             fim <- verdadeiro
          Senao
+         //Verificar coluna
             Se(vv[1,l]= "X") e (vv[2,l]="X") e (vv[3,l]="X") entao
                Escreval("Parabéns [X] campeão")
                fim <- verdadeiro
@@ -30,6 +31,7 @@ Inicio
       FimSe
    Fimpara
 
+   // Verificar diagonal principal
    Se(vv[1,1]="X") e (vv[2,2]="X") e (vv[3,3]="X") entao
       Escreval("Parabéns [X] campeão")
       fim <- verdadeiro
@@ -38,6 +40,7 @@ Inicio
          Escreval("Parabéns [O] campeão")
          fim <- verdadeiro
       Senao
+      // Verificar diagonal secundária
          Se(vv[1,3]="X") e (vv[2,2]="X") e (vv[3,1]="X") entao
             Escreval("Parabéns [X] campeão")
             fim <- verdadeiro
@@ -62,8 +65,8 @@ Inicio
       Escreval("")
    Fimpara
 FimProcedimento
-Inicio
 
+Inicio
    m <- 1
    terminou <- falso
    para i <- 1 ate 3 faca
@@ -76,8 +79,8 @@ Inicio
       Escreval("")
    Fimpara
 
-
    Repita
+      // Jogar o jogador "X"
       Escreva("Vai jogar [x] em qual posição? ")
       Leia(x)
       Se(x>=1) e (x<=9) entao
@@ -97,6 +100,7 @@ Inicio
       mostrarjogo(i,j,v)
 
       Se (terminou = falso) entao
+         // Jogar o jogador "O"
          Escreva("Vai jogar [o] em qual posição? ")
          Leia(o)
          Se(o>=1) e (o<=9) entao
