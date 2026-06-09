@@ -1,126 +1,158 @@
-Analisa o seguinte código:
-Algoritmo "jogovelha00"
+Algoritmo "jogodovelho"
 Var
-   v:vetor [1..3,1..3] de caractere
-   i,j,n,m,x,o: inteiro
+   v: vetor [1..3,1..3] de caractere
+   i,j,m: inteiro
+   x,o: inteiro
    terminou: logico
+   jogadas: inteiro
+   valido: logico
 
-procedimento logicavelha(var l: inteiro; var c: inteiro; var vv: vetor [1..3,1..3] de caractere; var fim:logico)
+Procedimento VerificaVelha()
+Var
+   l : inteiro
 Inicio
+   //Linhas
    para l <- 1 ate 3 faca
-   //Verificar linha
-      Se(vv[l,1]= "X") e (vv[l,2]="X") e (vv[l,3]="X") entao
-         Escreval("Parabéns [X] campeão")
-         fim <- verdadeiro
-      Senao
-         Se(vv[l,1]= "O") e (vv[l,2]="O") e (vv[l,3]="O") entao
-            Escreval("Parabéns [O] campeão")
-            fim <- verdadeiro
-         Senao
-         //Verificar coluna
-            Se(vv[1,l]= "X") e (vv[2,l]="X") e (vv[3,l]="X") entao
-               Escreval("Parabéns [X] campeão")
-               fim <- verdadeiro
-            Senao
-               Se(vv[1,l]= "O") e (vv[2,l]="O") e (vv[3,l]="O") entao
-                  Escreval("Parabéns [O] campeão")
-                  fim <- verdadeiro
-               FimSe
-            FimSe
+      Se(v[l,1] = v[l,2]) e (v[l,2] = v[l,3]) entao
+         Se(v[l,1]= "X") ou (v[l,1]="O") entao
+            Escreval("Parabéns [",v[l,1],"] campeão!")
+            terminou <- verdadeiro
+         Fimse
+      FimSe
+   Fimpara
+   // Colunas
+   Para l <- 1 Ate 3 Faca
+      Se(v[1,l] = v[2,l]) e (v[2,l] = v[3,l]) entao
+         Se(v[1,l] = "X") ou (v[1,l] ="O") entao
+            Escreval("Parabéns [", v[1,l],"] campeão!")
+            terminou <- verdadeiro
          FimSe
       FimSe
    Fimpara
-
-   // Verificar diagonal principal
-   Se(vv[1,1]="X") e (vv[2,2]="X") e (vv[3,3]="X") entao
-      Escreval("Parabéns [X] campeão")
-      fim <- verdadeiro
-   Senao
-      Se(vv[1,1]="O") e (vv[2,2]="O") e (vv[3,3]="O") entao
-         Escreval("Parabéns [O] campeão")
-         fim <- verdadeiro
-      Senao
-      // Verificar diagonal secundária
-         Se(vv[1,3]="X") e (vv[2,2]="X") e (vv[3,1]="X") entao
-            Escreval("Parabéns [X] campeão")
-            fim <- verdadeiro
-         Senao
-            Se(vv[1,3]="O") e (vv[2,2]="O") e (vv[3,1]="O") entao
-               Escreval("Parabéns [O] campeão")
-               fim <- verdadeiro
-            FimSe
-         Fimse
+   // Diagonal Principal
+   Se (v[1,1] = v[2,2]) e (v[2,2] = v[3,3]) entao
+      Se (v[1,1] = "X") ou (v[1,1] = "O") entao
+         Escreval("Parabéns [",v[1,1],"] campeão!")
+         terminou <- verdadeiro
+      FimSe
+   FimSe
+   // Diagonal Secundária
+   Se(v[1,3] = v[2,2]) e (v[2,2] = v[3,1]) entao
+      Se(v[1,3] = "X") ou (v[1,3] = "O") entao
+         Escreval("Parabéns [",v[1,3],"] campeão!")
+         terminou <- verdadeiro
       FimSe
    FimSe
 Fimprocedimento
 
-procedimento mostrarjogo(var l:inteiro; var c: inteiro; var vv: vetor [1..3,1..3] de caractere)
+procedimento Mostrarjogo()
+var
+   l,c: inteiro
 Inicio
    LimpaTela
    para l <- 1 ate 3 faca
       Escreval("+---+---+---+")
       para c <- 1 ate 3 faca
-         Escreva("| ",vv[l,c],"|")
+         Escreva("| ",v[l,c]," ")
       FimPara
-      Escreval("")
+      Escreval("|")
    Fimpara
+   Escreval("+---+---+---+")
 FimProcedimento
 
 Inicio
    m <- 1
+   jogadas <- 0
    terminou <- falso
    para i <- 1 ate 3 faca
-      Escreval("+---+---+---+")
       para j <- 1 ate 3 faca
          v[i,j] <- numpcarac(m)
          m <- m+1
-         Escreva("| ",v[i,j],"|")
       FimPara
-      Escreval("")
    Fimpara
 
+   Mostrarjogo()
+
    Repita
-      // Jogar o jogador "X"
-      Escreva("Vai jogar [x] em qual posição? ")
-      Leia(x)
-      Se(x>=1) e (x<=9) entao
-         para i <- 1 ate 3 faca
-            para j <-1 ate 3 faca
-               Se (v[i,j] = numpcarac(x)) entao
-                  Se (v[i,j] = "X") ou (v[i,j] = "O") entao
-                  Senao
-                     v[i,j] <- "X"
-                  FimSe
-               FimSe
-            Fimpara
-         Fimpara
-      FimSe
-
-      logicavelha(i,j,v)
-      mostrarjogo(i,j,v)
-
-      Se (terminou = falso) entao
-         // Jogar o jogador "O"
-         Escreva("Vai jogar [o] em qual posição? ")
-         Leia(o)
-         Se(o>=1) e (o<=9) entao
+      // Jogador X
+      Repita
+         valido <- falso
+         Escreva("Vai jogar [X] em qual posição? ")
+         Leia(x)
+         Se (x < 1) ou (x > 9) entao
+            Escreval("Posição inválida!")
+         Senao
+            // Verifica se a posição já está ocupada
             para i <- 1 ate 3 faca
-               para j <-1 ate 3 faca
-                  Se(v[i,j] = numpcarac(o)) entao
-                     Se(v[i,j] = "X") ou (v[i,j] = "O") entao
-                        Escreval("Posição já ocupada")
-                     Senao
-                        v[i,j] <- "O"
-                     FimSe
+               para j <- 1 ate 3 faca
+                  Se (v[i,j] = numpcarac(x)) entao
+                     valido <- verdadeiro
                   FimSe
                Fimpara
             Fimpara
+            Se (valido = falso) entao
+               Escreval("Essa posição já está ocupada!")
+            FimSe
          FimSe
+      Ate (x>=1) e (x<=9) e (valido = verdadeiro)
 
-         logicavelha(i,j,v)
-         mostrarjogo(i,j,v)
+      para i <- 1 ate 3 faca
+         para j <-1 ate 3 faca
+            Se (v[i,j] = numpcarac(x)) entao
+               v[i,j] <- "X"
+               jogadas <- jogadas + 1
+            FimSe
+         Fimpara
+      Fimpara
+
+      Mostrarjogo()
+      VerificaVelha()
+
+      Se(terminou = falso) entao
+         Se(jogadas = 9) entao
+            Escreval("Empate!")
+            terminou <- verdadeiro
+         Senao
+            //Jogador O
+            Repita
+               valido <- falso
+               Escreva("Vai jogar [O] em qual posição? ")
+               Leia(o)
+               Se (o < 1) ou (o > 9) Entao
+                  Escreval("Posição inválida!")
+               Senao
+                  // Verifica se a posição já está ocupada
+                  para i <- 1 ate 3 faca
+                     para j <- 1 ate 3 faca
+                        Se (v[i,j] = numpcarac(o)) entao
+                           valido <- verdadeiro
+                        FimSe
+                     Fimpara
+                  Fimpara
+                  Se (valido = falso) entao
+                     Escreval("Essa posição já está ocupada!")
+                  FimSe
+               FimSe
+            Ate(o>=1) e (o<=9) e (valido = verdadeiro)
+
+            para i <- 1 ate 3 faca
+               para j <-1 ate 3 faca
+                  Se(v[i,j] = numpcarac(o)) entao
+                     v[i,j] <- "O"
+                     jogadas <- jogadas + 1
+                  FimSe
+               Fimpara
+            Fimpara
+
+            Mostrarjogo()
+            VerificaVelha()
+
+            Se (terminou = falso) e (jogadas = 9) Entao
+               Escreval("Empate!")
+               terminou <- verdadeiro
+            FimSe
+         FimSe
       FimSe
 
-   Ate(terminou = verdadeiro)
+   Ate (terminou = verdadeiro)
 Fimalgoritmo
-
