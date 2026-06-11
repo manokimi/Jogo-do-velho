@@ -103,8 +103,9 @@ Leia um número N e calcule a soma de todos os números de 1 até N.
 ---
 Algoritmo "somannumeros"
 Var
-   c,n,z,s:inteiro
+   n,c,s:inteiro
 Inicio
+    s <- o
    Escreva("Insira um número: ")
    Leia(n)
    para c <-1 ate n faca
@@ -125,8 +126,8 @@ Leia 5 notas de um aluno e mostre:
 ---
 Algoritmo"medianotas"
 Var
-cont,c,soma: inteiro
-meida:real 
+cont,c,soma,n: inteiro
+media:real 
 procedimento aprovado(x:real)
 Inicio
     Se x >= 7 entao
@@ -136,14 +137,12 @@ Inicio
 Fimprocedimento
 Inicio
 cont <- 1
-Repita
-    para c <- 1 ate 5 faca
-        Escreva("Insira a",c,"ªnota do aluno: ")
-        Leia(n)
-        soma <- soma + n
-        cont <- cont + 1
-    Fimpara
-Ate (cont=5)
+para c <- 1 ate 5 faca
+    Escreva("Insira a",c,"ªnota do aluno: ")
+    Leia(n)
+    soma <- soma + n
+    cont <- cont + 1
+Fimpara
 media <- soma/5
 aprovado(media)
 ---
@@ -391,10 +390,10 @@ Inicio
       Fimescolha
       Escreva("Deseja realizar outra operação? [S/N] ")
       Leia(r)
-      Se(maiusc(r)="S") entao
+      Se(maiusc(r)="N") entao
          repetir <- falso
       FimSe
-   Ate(repetir= verdadeiro)
+   Ate(repetir= falso)
 FimAlgoritmo
 ---
 ## 14. Fatorial
